@@ -1,0 +1,22 @@
+<Project Sdk="WixToolset.Sdk/6.0.2">
+
+  <PropertyGroup>
+    <OutputName>HeicToJpg-Setup</OutputName>
+    <Platform>x64</Platform>
+    <!-- Build Shell project first so source DLLs are available -->
+    <BuildProjectReferences>true</BuildProjectReferences>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeicToJpg.Shell\HeicToJpg.Shell.csproj">
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+      <SetTargetFramework>TargetFramework=net48</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

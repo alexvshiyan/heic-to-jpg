@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+
+  <Package Name="HeicToJpg"
+           Manufacturer="HeicToJpg"
+           Version="1.0.0.0"
+           UpgradeCode="8BF667E1-B3E1-4202-ABD3-8EB81723ED30"
+           Scope="perMachine"
+           InstallerVersion="500">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of HeicToJpg is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- Simple Next/Install/Finish wizard (no license page) -->
+    <ui:WixUI Id="WixUI_Minimal" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" Overridable="yes" />
+
+    <!-- ── Install directory ──────────────────────────────────────────────── -->
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="HeicToJpg" />
+    </StandardDirectory>
+
+    <!-- ── Features ──────────────────────────────────────────────────────── -->
+    <Feature Id="Main" Title="HeicToJpg" Level="1">
+      <ComponentRef Id="CmpFiles" />
+      <ComponentRef Id="CmpRegistryHklm" />
+      <ComponentRef Id="CmpRegistryHkcu" />
+    </Feature>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- Component 1 — DLL files                                             -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <Component Id="CmpFiles"
+               Guid="964AF5F1-FD70-44AB-B683-922537495D10"
+               Directory="INSTALLFOLDER">
+
+      <File Id="HeicToJpg.Shell.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\HeicToJpg.Shell.dll"
+            KeyPath="yes" />
+      <File Id="HeicToJpg.Core.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\HeicToJpg.Core.dll" />
+      <File Id="Magick.NET_Q16_AnyCPU.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Magick.NET-Q16-AnyCPU.dll" />
+      <File Id="Magick.NET.Core.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Magick.NET.Core.dll" />
+      <File Id="Magick.Native_Q16_x64.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Magick.Native-Q16-x64.dll" />
+      <File Id="Magick.Native_Q16_x86.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Magick.Native-Q16-x86.dll" />
+      <File Id="Magick.Native_Q16_arm64.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Magick.Native-Q16-arm64.dll" />
+      <File Id="SharpShell.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\SharpShell.dll" />
+      <File Id="System.Text.Json.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Text.Json.dll" />
+      <File Id="System.Text.Encodings.Web.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Text.Encodings.Web.dll" />
+      <File Id="System.Buffers.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Buffers.dll" />
+      <File Id="System.Memory.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Memory.dll" />
+      <File Id="System.Numerics.Vectors.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Numerics.Vectors.dll" />
+      <File Id="System.Runtime.CompilerServices.Unsafe.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Runtime.CompilerServices.Unsafe.dll" />
+      <File Id="System.Threading.Tasks.Extensions.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.Threading.Tasks.Extensions.dll" />
+      <File Id="System.ValueTuple.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\System.ValueTuple.dll" />
+      <File Id="Microsoft.Bcl.AsyncInterfaces.dll"
+            Source="..\HeicToJpg.Shell\bin\Release\net48\Microsoft.Bcl.AsyncInterfaces.dll" />
+
+    </Component>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- Component 2 — HKLM registry: COM servers + shell extension          -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <Component Id="CmpRegistryHklm"
+               Guid="02C5EC3C-55FB-448B-B3BA-68BDBC80AD09"
+               Directory="INSTALLFOLDER">
+
+      <!-- ── IContextMenu handler CLSID ───────────────────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}"
+                     Value="HeicToJpg.Shell.HeicContextMenuHandler"
+                     Type="string"
+                     KeyPath="yes" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Value="mscoree.dll" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Name="ThreadingModel" Value="Apartment" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Name="Class" Value="HeicToJpg.Shell.HeicContextMenuHandler" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Name="Assembly"
+                     Value="HeicToJpg.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Name="RuntimeVersion" Value="v4.0.30319" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32"
+                     Name="CodeBase"
+                     Value="file:///[INSTALLFOLDER]HeicToJpg.Shell.dll"
+                     Type="string" />
+      <!-- version sub-key -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32\1.0.0.0"
+                     Name="Class" Value="HeicToJpg.Shell.HeicContextMenuHandler" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32\1.0.0.0"
+                     Name="Assembly"
+                     Value="HeicToJpg.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32\1.0.0.0"
+                     Name="RuntimeVersion" Value="v4.0.30319" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\InprocServer32\1.0.0.0"
+                     Name="CodeBase"
+                     Value="file:///[INSTALLFOLDER]HeicToJpg.Shell.dll"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\ProgId"
+                     Value="HeicToJpg.Shell.HeicContextMenuHandler" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}"
+                     Value="" Type="string" />
+
+      <!-- ── IExplorerCommand handler CLSID ────────────────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}"
+                     Value="HeicToJpg.Shell.HeicExplorerCommand"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Value="mscoree.dll" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Name="ThreadingModel" Value="Both" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Name="Class" Value="HeicToJpg.Shell.HeicExplorerCommand" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Name="Assembly"
+                     Value="HeicToJpg.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Name="RuntimeVersion" Value="v4.0.30319" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32"
+                     Name="CodeBase"
+                     Value="file:///[INSTALLFOLDER]HeicToJpg.Shell.dll"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32\1.0.0.0"
+                     Name="Class" Value="HeicToJpg.Shell.HeicExplorerCommand" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32\1.0.0.0"
+                     Name="Assembly"
+                     Value="HeicToJpg.Shell, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32\1.0.0.0"
+                     Name="RuntimeVersion" Value="v4.0.30319" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\InprocServer32\1.0.0.0"
+                     Name="CodeBase"
+                     Value="file:///[INSTALLFOLDER]HeicToJpg.Shell.dll"
+                     Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\ProgId"
+                     Value="HeicToJpg.Shell.HeicExplorerCommand" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\CLSID\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}"
+                     Value="" Type="string" />
+
+      <!-- ── Approved shell extensions ─────────────────────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved"
+                     Name="{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}"
+                     Value="HeicToJpg Context Menu" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved"
+                     Name="{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}"
+                     Value="HeicToJpg Explorer Command" Type="string" />
+
+      <!-- ── .heic and heic.1 context menu handler ─────────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\.heic\ShellEx\ContextMenuHandlers\HeicToJpg"
+                     Value="{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\heic.1\ShellEx\ContextMenuHandlers\HeicToJpg"
+                     Value="{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}" Type="string" />
+
+      <!-- ── ExplorerCommand verb ───────────────────────────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\.heic\shell\ConvertToJpeg"
+                     Name="MUIVerb" Value="Convert to JPEG" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\.heic\shell\ConvertToJpeg"
+                     Name="ExplorerCommandHandler"
+                     Value="{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\heic.1\shell\ConvertToJpeg"
+                     Name="MUIVerb" Value="Convert to JPEG" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\heic.1\shell\ConvertToJpeg"
+                     Name="ExplorerCommandHandler"
+                     Value="{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}" Type="string" />
+
+      <!-- ── ExplorerCommandHandlers shell extension ───────────────────── -->
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\.heic\shellex\ExplorerCommandHandlers\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}"
+                     Value="" Type="string" />
+      <RegistryValue Root="HKLM"
+                     Key="SOFTWARE\Classes\heic.1\shellex\ExplorerCommandHandlers\{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}"
+                     Value="" Type="string" />
+
+    </Component>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- Component 3 — HKCU registry: AUMID + classic context menu restore   -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <Component Id="CmpRegistryHkcu"
+               Guid="9F573C7E-BC84-45AF-A2CC-056C687FF1ED"
+               Directory="INSTALLFOLDER">
+
+      <!-- Toast notification AUMID -->
+      <RegistryValue Root="HKCU"
+                     Key="SOFTWARE\Classes\AppUserModelId\HeicToJpg.Converter"
+                     Name="DisplayName" Value="Convert to JPEG"
+                     Type="string"
+                     KeyPath="yes" />
+
+      <!-- Restore classic context menu (Option A) so the IContextMenu handler
+           appears at top level on Windows 11 without needing package identity -->
+      <RegistryValue Root="HKCU"
+                     Key="Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+                     Value="" Type="string" />
+
+    </Component>
+
+    <!-- ── Restart Explorer after install/uninstall ──────────────────────── -->
+    <util:RestartResource ProcessName="explorer" />
+
+  </Package>
+
+</Wix>

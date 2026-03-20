@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeicToJpg.Shell", "HeicToJp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeicToJpg.Tests", "HeicToJpg.Tests\HeicToJpg.Tests.csproj", "{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "HeicToJpg.Installer", "HeicToJpg.Installer\HeicToJpg.Installer.wixproj", "{1715CF49-97BD-4B72-A56A-10D7AA44C564}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1715CF49-97BD-4B72-A56A-10D7AA44C564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1715CF49-97BD-4B72-A56A-10D7AA44C564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1715CF49-97BD-4B72-A56A-10D7AA44C564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1715CF49-97BD-4B72-A56A-10D7AA44C564}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
