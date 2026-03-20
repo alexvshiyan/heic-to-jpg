@@ -12,10 +12,15 @@ $runtime    = 'v4.0.30319'
 $clsidContextMenu   = '{B3D5F8A2-7C14-4E9B-A612-0D3F8B5E2C1A}'
 $clsidExplorerCmd   = '{4B8E3F21-A5D7-4C9E-B823-F9D156A7E302}'
 
-# ── Stop Explorer so it releases loaded DLLs before build and copy ───────────
+# ── Stop Explorer and dotnet processes to release locked files ───────────────
 Write-Host "Stopping Explorer..."
 Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
-Start-Sleep -Milliseconds 800
+
+Write-Host "Stopping dotnet processes..."
+Stop-Process -Name dotnet -Force -ErrorAction SilentlyContinue
+
+Write-Host "Waiting for file handles to release..."
+Start-Sleep -Seconds 3
 
 # ── Build ─────────────────────────────────────────────────────────────────────
 Write-Host "Building Release..."
