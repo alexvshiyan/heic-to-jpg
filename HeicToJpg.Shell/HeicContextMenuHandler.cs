@@ -46,8 +46,13 @@ public class HeicContextMenuHandler : SharpContextMenu
 
     private void OnConvertClick(object? sender, EventArgs e)
     {
+        var paths = SelectedItemPaths.ToList();
+
+        if (paths.Count > 1)
+            ShowToast("Convert to JPEG", $"Converting {paths.Count} files\u2026");
+
         var results = new BatchConverter(new MagickConversionEngine())
-            .Convert(SelectedItemPaths, ConversionConfig.Load());
+            .Convert(paths, ConversionConfig.Load());
 
         foreach (var r in results)
             if (r.Success) WriteLog($"OK:   {r.InputName} -> {r.OutputName}");
@@ -68,13 +73,13 @@ public class HeicContextMenuHandler : SharpContextMenu
         {
             body = ok.Count == 1
                 ? $"{ok[0].OutputName} saved"
-                : $"{ok.Count} files converted";
+                : $"{ok.Count} converted";
         }
         else if (ok.Count == 0)
         {
             body   = fail.Count == 1
                 ? $"Error: {fail[0].ErrorMessage}"
-                : $"{fail.Count} files failed";
+                : $"{fail.Count} failed";
             detail = fail.Count > 1 ? $"{fail[0].InputName}: {fail[0].ErrorMessage}" : null;
         }
         else
