@@ -24,19 +24,12 @@ public class HeicContextMenuHandler : SharpContextMenu
 
     protected override bool CanShowMenu()
     {
-        var paths = string.Join(", ", SelectedItemPaths);
-        WriteLog($"CanShowMenu called. Paths: [{paths}]");
-
-        var result = SelectedItemPaths.All(p =>
+        return SelectedItemPaths.All(p =>
             Path.GetExtension(p).Equals(".heic", StringComparison.OrdinalIgnoreCase));
-
-        WriteLog($"CanShowMenu returning: {result}");
-        return result;
     }
 
     protected override ContextMenuStrip CreateMenu()
     {
-        WriteLog("CreateMenu called.");
         var menu = new ContextMenuStrip();
         var item = new ToolStripMenuItem { Text = "Convert to JPEG" };
         item.Click += OnConvertClick;
