@@ -249,8 +249,29 @@
 
     </Component>
 
-    <!-- ── Restart Explorer after install/uninstall ──────────────────────── -->
-    <util:RestartResource ProcessName="explorer" />
+    <!-- ── Kill Explorer before files are written so DLLs aren't locked ──── -->
+    <util:CloseApplication Id="CloseExplorer"
+                           Target="explorer.exe"
+                           RebootPrompt="no"
+                           TerminateProcess="5"
+                           CloseMessage="no" />
+
+    <!-- ── Restart Explorer after all files and registry keys are written ── -->
+    <!-- Type-34 CA: launches [WindowsFolder]\explorer.exe as the current    -->
+    <!-- user; asyncNoWait so the installer doesn't block on the new shell.  -->
+    <CustomAction Id="RestartExplorer"
+                  Directory="WindowsFolder"
+                  ExeCommand="explorer.exe"
+                  Execute="deferred"
+                  Return="asyncNoWait"
+                  Impersonate="yes" />
+
+    <InstallExecuteSequence>
+      <!-- Must be inside InstallInitialize..InstallFinalize (ICE77).       -->
+      <!-- asyncNoWait means the installer doesn't block on the new shell.  -->
+      <!-- All files and registry keys are written before this point.       -->
+      <Custom Action="RestartExplorer" Before="InstallFinalize" />
+    </InstallExecuteSequence>
 
   </Package>
 
