@@ -1,0 +1,8 @@
+<Project>
+
+  <!-- Redirect obj/ outside OneDrive to prevent sync-lock failures during build -->
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>C:\Temp\HeicToJpg\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+</Project>
