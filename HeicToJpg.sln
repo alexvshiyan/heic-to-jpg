@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeicToJpg.Core", "HeicToJpg.Core\HeicToJpg.Core.csproj", "{5AD16A0C-A8CE-48CB-9253-E6F09109A49C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeicToJpg.Shell", "HeicToJpg.Shell\HeicToJpg.Shell.csproj", "{6617C881-37B4-4D71-8065-3045248CFAFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeicToJpg.Tests", "HeicToJpg.Tests\HeicToJpg.Tests.csproj", "{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AD16A0C-A8CE-48CB-9253-E6F09109A49C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD16A0C-A8CE-48CB-9253-E6F09109A49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD16A0C-A8CE-48CB-9253-E6F09109A49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD16A0C-A8CE-48CB-9253-E6F09109A49C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6617C881-37B4-4D71-8065-3045248CFAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6617C881-37B4-4D71-8065-3045248CFAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6617C881-37B4-4D71-8065-3045248CFAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6617C881-37B4-4D71-8065-3045248CFAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298A53B7-6258-44A8-B8D7-E7ACD103CBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
