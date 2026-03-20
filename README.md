@@ -38,10 +38,10 @@ Quality and EXIF settings are stored in `%AppData%\HeicToJpg\config.json`, which
 
 Edit the file in any text editor to change the settings. Changes take effect immediately — no reinstallation needed.
 
-| Setting | Values | Default |
-|---|---|---|
-| `JpegQuality` | 1–100 | `85` |
-| `PreserveExif` | `true` / `false` | `true` |
+| Setting | Values | Default | Description |
+|---|---|---|---|
+| `JpegQuality` | 1–100 | `85` | Output quality and file size. 85 is a good balance; use 95+ for maximum quality, 60–70 for smaller files. |
+| `PreserveExif` | `true` / `false` | `true` | Keep photo metadata in the output (date taken, GPS location, camera model, orientation). Set to `false` to strip all metadata for privacy or sharing. |
 
 ## Uninstallation
 
