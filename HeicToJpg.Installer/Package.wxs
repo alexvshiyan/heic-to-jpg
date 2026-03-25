@@ -13,8 +13,8 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of HeicToJpg is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- Simple Next/Install/Finish wizard (no license page) -->
-    <ui:WixUI Id="WixUI_Minimal" />
+    <!-- Feature tree UI so the classic-menu checkbox is visible during install -->
+    <ui:WixUI Id="WixUI_FeatureTree" />
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" Overridable="yes" />
 
     <!-- ── Install directory ──────────────────────────────────────────────── -->
@@ -27,6 +27,14 @@
       <ComponentRef Id="CmpFiles" />
       <ComponentRef Id="CmpRegistryHklm" />
       <ComponentRef Id="CmpRegistryHkcu" />
+    </Feature>
+
+    <!-- Opt-in classic context menu restore (default: checked / Level=1) -->
+    <Feature Id="ClassicMenu"
+             Title="Show in top-level right-click menu (Windows 11)"
+             Description="Restores the classic context menu on Windows 11 so Convert to JPEG appears at the top level of the right-click menu. If unchecked, the option will be under &apos;Show more options&apos;."
+             Level="1">
+      <ComponentRef Id="CmpRegistryClassicMenu" />
     </Feature>
 
     <!-- ════════════════════════════════════════════════════════════════════ -->
@@ -228,7 +236,7 @@
     </Component>
 
     <!-- ════════════════════════════════════════════════════════════════════ -->
-    <!-- Component 3 — HKCU registry: AUMID + classic context menu restore   -->
+    <!-- Component 3 — HKCU registry: Toast AUMID                           -->
     <!-- ════════════════════════════════════════════════════════════════════ -->
     <Component Id="CmpRegistryHkcu"
                Guid="9F573C7E-BC84-45AF-A2CC-056C687FF1ED"
@@ -241,11 +249,22 @@
                      Type="string"
                      KeyPath="yes" />
 
-      <!-- Restore classic context menu (Option A) so the IContextMenu handler
-           appears at top level on Windows 11 without needing package identity -->
+    </Component>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- Component 4 — HKCU registry: Classic context menu restore (opt-in) -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <Component Id="CmpRegistryClassicMenu"
+               Guid="A1C4E8F3-D27B-4A50-9B63-1F5E920C4D87"
+               Directory="INSTALLFOLDER">
+
+      <!-- Option A: empty InprocServer32 forces Windows 11 to use the      -->
+      <!-- classic context menu, so IContextMenu handlers appear at the     -->
+      <!-- top level without needing MSIX package identity.                 -->
       <RegistryValue Root="HKCU"
                      Key="Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
-                     Value="" Type="string" />
+                     Value="" Type="string"
+                     KeyPath="yes" />
 
     </Component>
 

@@ -39,19 +39,38 @@ public class HeicContextMenuHandler : SharpContextMenu
 
     private void OnConvertClick(object? sender, EventArgs e)
     {
-        var paths = SelectedItemPaths.ToList();
+        try
+        {
+            var paths = SelectedItemPaths.ToList();
 
-        if (paths.Count > 1)
-            ShowToast("Convert to JPEG", $"Converting {paths.Count} files\u2026");
+            if (paths.Count > 1)
+                ShowToast("Convert to JPEG", $"Converting {paths.Count} files\u2026");
 
-        var results = new BatchConverter(new MagickConversionEngine())
-            .Convert(paths, ConversionConfig.Load());
+            System.Threading.Tasks.Task.Run(() =>
+            {
+                try
+                {
+                    var results = new BatchConverter(new MagickConversionEngine())
+                        .Convert(paths, ConversionConfig.Load());
 
-        foreach (var r in results)
-            if (r.Success) WriteLog($"OK:   {r.InputName} -> {r.OutputName}");
-            else           WriteLog($"FAIL: {r.InputName} -> {r.ErrorMessage}");
+                    foreach (var r in results)
+                        if (r.Success) WriteLog($"OK:   {r.InputName} -> {r.OutputName}");
+                        else           WriteLog($"FAIL: {r.InputName} -> {r.ErrorMessage}");
 
-        ShowSummaryToast(results);
+                    ShowSummaryToast(results);
+                }
+                catch (Exception ex)
+                {
+                    WriteLog($"Conversion error: {ex.GetType().Name}: {ex.Message}");
+                    ShowToast("Convert to JPEG", "Conversion failed", ex.Message);
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"OnConvertClick error: {ex.GetType().Name}: {ex.Message}");
+            ShowToast("Convert to JPEG", "Conversion failed", ex.Message);
+        }
     }
 
     private static void ShowSummaryToast(IReadOnlyList<BatchConverter.FileResult> results)
