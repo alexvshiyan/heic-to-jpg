@@ -62,3 +62,22 @@ HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer3
 ```
 
 Note that removing it will move the item back under **Show more options**.
+
+## License
+
+AVS heic2jpg is released under the [MIT License](LICENSE.md).
+Copyright (c) 2026 Alexey Shiyan / AVS Consulting Partnership
+
+## Third-party licenses
+
+| Library | Author | License |
+|---------|--------|---------|
+| [Magick.NET](https://github.com/dlemstra/Magick.NET) | Dirk Lemstra | Apache 2.0 |
+| [SharpShell](https://github.com/dwmkerr/sharpshell) | Dave Kerr | MIT |
+| [WiX Toolset](https://wixtoolset.org) | FireGiant | MS-RL |
+| [xUnit.net](https://xunit.net) | xUnit contributors | Apache 2.0 |
+
+## Acknowledgements
+
+Designed and built by Alexey Shiyan with the assistance of
+[Claude AI](https://www.anthropic.com) by Anthropic.
